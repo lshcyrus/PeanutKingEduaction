@@ -1,0 +1,21 @@
+***IMPORTANT NOTES FOR ADMIN PANEL***
+Note that there are some bugs existing in the admin panel:
+
+1. The website is only available for single connection. Once there are more than one user modifying courses information, it will result in very slow loading speed or uploading speed on the website.
+
+2. It is known that whenever the coding part is added to a step and proceeding to upload, it usually takes longer time to finish the upload process. However, there is no indicator (i.e., progress bar) to show the uploading progress. Users have to wait until the 'step is added successfully' message popped up.
+
+3. The new step number in the step adder suddenly stopped refreshing after a bug exist, now users have to click on the '+' button to wait for the new step number to load.
+
+4. Deleting photos are not allowed on frontend (idk if this is related to backend settings).
+
+5. Remember to watch GUIDE.txt inside the source code folder.
+
+20/9/2023 Update:
+
+Added a new progress bar to show the uploading progress of steps info. (Progress from antd)
+The new step number inside step adder suddenly works again but not always work.
+
+v1.1.0 is the latest version, v1.0.0 serves as a backup
+
+The version uploaded to AWS is 1.1.0, I forget to change the name of bundle.

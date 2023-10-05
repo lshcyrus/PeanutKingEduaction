@@ -1,0 +1,12 @@
+#topbar img {
+    width: 45px;
+    height: 55px;
+}
+
+#topbar a {
+    color: #fff !important;
+}
+
+#topbar .dropdown-item {
+    color: #000 !important;
+}

@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <!-- <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Hugo 0.98.0"> -->
+  <title>Sign in</title>
+  <link rel="shortcut icon" type="x-icon" href="sign-in/img/logo_only.png">
+  <link href="sign-in/css/bootstrap.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="sign-in/css/style.css" rel="stylesheet">
+  <link href="sign-in/css/sign-in.css" rel="stylesheet">
+
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+    
+  <script src="https://accounts.google.com/gsi/client" onload="initClient()" async defer></script>
+</head>
+
+<body class="text-center">
+  <main class="form-signin w-100 m-auto">
+    <form action="index.html">
+      <input type="image" src="sign-in/img/logo_peanut_king.png" alt="" width="210" height="140" />
+    </form>
+
+    <form>
+      <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+      <script>
+        var client;
+        var access_token;
+  
+        function initClient() {
+          client = google.accounts.oauth2.initTokenClient({
+            client_id: '401973153712-e89sjkulth7btvr3ne2drhtnm5bbkq89.apps.googleusercontent.com',
+            scope: 'https://www.googleapis.com/auth/userinfo.profile',
+            callback: (tokenResponse) => {
+              access_token = tokenResponse.access_token;
+              showToken();
+              //login();
+            },
+          });
+          
+        }
+        function getToken() {
+          client.requestAccessToken();
+        }
+        function revokeToken() {
+          google.accounts.oauth2.revoke(access_token, () => {console.log('access token revoked')});
+        }
+        function showToken(){
+          console.log(access_token);
+        }
+  
+        var xhr = new XMLHttpRequest();
+        var url = "https://peanutkingeducation.com/auth/convert-token/";
+        var data;
+        function login(){
+          xhr.open("POST", url, true);
+          xhr.setRequestHeader('Content-Type', 'application/json');
+  
+          xhr.addEventListener("readystatechange",function(){
+            if(this.readyState == 4 && this.status == 200){//login successfully
+                console.log("response from backend:\n");
+                console.log(xhr.responseText);
+                var access = "Bearer " + JSON.parse(xhr.responseText).access_token;
+                
+                document.cookie = 'access_token=' + access;
+                console.log("access",document.cookie);
+                //Cookies.set('access_token', access, { expires: 1, secure: true });
+                location.href = "https://peanutkingeducation.com/dashboard/index.html";
+              }
+          });
+  
+          xhr.send(JSON.stringify({//client_id is for application id 6
+            "grant_type": "convert_token",
+            "client_id": "UQNAJUVzANBZd9QQ9CvrZ1Rq582S2frV2vqoxU07",
+            "backend": "google-oauth2",
+            "token": access_token,
+          }));  
+        }
+      </script>
+
+      <a class="w-100 btn btn-lg btn-primary" onclick="getToken()">Sign in with Google</a>
+
+      <p class="mt-5 mb-3 text-muted">&copy; 2022 Peanut King Solution Limited</p>
+    </form>
+
+    
+    
+
+  </main>
+  <script src="sign-in/js/js.cookie.min.js"></script>
+
+</body>
+
+</html>
